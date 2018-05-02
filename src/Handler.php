@@ -88,7 +88,7 @@ abstract class Handler
      */
     public function onRender(): Response
     {
-        return new Response($this->twig->render($this->view, ["form" => $this->form]));
+        return new Response($this->twig->render($this->view, ["form" => $this->form->createView()]));
     }
 
     public function onError()
