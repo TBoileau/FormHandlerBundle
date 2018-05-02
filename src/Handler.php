@@ -64,6 +64,11 @@ abstract class Handler
     protected $view;
 
     /**
+     * @var array
+     */
+    protected $extraData;
+
+    /**
      * EventSubscriber constructor.
      * @param FormFactoryInterface $formFactory
      * @param RouterInterface $router
@@ -88,9 +93,20 @@ abstract class Handler
      */
     public function onRender(): Response
     {
-        return new Response($this->twig->render($this->view, ["form" => $this->form->createView()]));
+        return new Response($this->twig->render($this->view, ["form" => $this->form->createView()] + $this->extraData));
     }
 
+    /**
+     * Before create form
+     */
+    public function beforeCreate()
+    {
+
+    }
+
+    /**
+     * Error
+     */
     public function onError()
     {
 
@@ -109,16 +125,19 @@ abstract class Handler
      * @param null $data
      * @param array $options
      * @param string $view
+     * @param array $extraData
      * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function handle($data = null, $options = [], $view = '')
+    public function handle($data = null, $options = [], $view = '', $extraData = [])
     {
         $this->data = $data;
         $this->options = $options;
         $this->view = $view;
+        $this->extraData = $extraData;
+        $this->beforeCreate();
         $this->onCreate()->handleRequest($this->requestStack->getCurrentRequest());
         if ($this->form->isSubmitted() and $this->form->isValid()) {
             return $this->onSuccess();
