@@ -139,3 +139,32 @@ class FooHandler extends Handler
 ## Full configuration
 
 If you want, you could override than handler master class for fully control (see [Handler](src/Handler.php)).
+
+## Use a form handler
+
+You must simply add your new form handler in argument's of your controller's action, like this :
+
+```php
+<?php
+
+namespace App\Controller;
+
+use App\Handler\FooHandler;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use TBoileau\FormHandlerBundle\HandlerManager;
+
+class DefaultController extends Controller
+{
+    /**
+     * @Route("/foo/add", name="foo_add")
+     * @param FooHandler $fooHandler 
+     * @return Response
+     */
+    public function add(FooHandler $fooHandler): Response
+    {
+        return $fooHandler->handle(new Foo(), [], 'foo/add.html.twig');
+    }
+}
+```
