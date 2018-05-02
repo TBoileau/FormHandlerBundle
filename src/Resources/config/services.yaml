@@ -1,0 +1,5 @@
+services:
+    TBoileau\FormHandlerBundle\Maker\HandlerMaker:
+        arguments: ["@maker.file_manager", "@twig"]
+        tags:
+            - { name: maker.command }

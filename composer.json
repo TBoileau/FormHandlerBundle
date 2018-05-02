@@ -10,6 +10,10 @@
     "symfony/form": "^4.0",
     "symfony/twig-bundle": "^4.0"
   },
+  "require-dev": {
+    "symfony/dotenv": "^4.0",
+    "symfony/maker-bundle": "^1.4"
+  },
   "autoload": {
     "psr-4": {
       "TBoileau\\FormHandlerBundle\\": "src/"
