@@ -7,6 +7,7 @@ cache:
 
 env:
     global:
+        - CODACY_PROJECT_TOKEN=47ba3016d9cd41988a97ed1d7ada3d03
         - PHPUNIT_FLAGS="-v"
         - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
 

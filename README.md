@@ -1,5 +1,7 @@
 # TBoileau/FormHandlerBundle
 
+[![Build Status](https://travis-ci.org/TBoileau/FormHandlerBundle.svg?branch=master)](https://travis-ci.org/TBoileau/FormHandlerBundle) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f563a43a6c70494e87e79d8be52b329e)](https://www.codacy.com/app/TBoileau/FormHandlerBundle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TBoileau/FormHandlerBundle&amp;utm_campaign=Badge_Grade)
+
 ## Installation
 
 ### Step 1: Download the Bundle
