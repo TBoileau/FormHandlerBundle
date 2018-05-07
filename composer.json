@@ -1,5 +1,6 @@
 {
   "name": "tboileau/form-handler-bundle",
+  "description": "Symfony 4 bundle, a form handler to respect SOLID concepts",
   "type": "symfony-bundle",
   "license": "MIT",
   "minimum-stability": "dev",
