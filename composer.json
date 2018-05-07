@@ -18,7 +18,8 @@
   },
   "autoload": {
     "psr-4": {
-      "TBoileau\\FormHandlerBundle\\": "src/"
+      "TBoileau\\FormHandlerBundle\\": "src/",
+      "TBoileau\\FormHandlerBundle\\Tests\\": "tests/"
     }
   }
 }
