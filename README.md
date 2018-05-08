@@ -1,6 +1,6 @@
 # TBoileau/FormHandlerBundle
 
-[![Build Status](https://travis-ci.org/TBoileau/FormHandlerBundle.svg?branch=master)](https://travis-ci.org/TBoileau/FormHandlerBundle) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f563a43a6c70494e87e79d8be52b329e)](https://www.codacy.com/app/TBoileau/FormHandlerBundle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TBoileau/FormHandlerBundle&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/TBoileau/FormHandlerBundle.svg?branch=master)](https://travis-ci.org/TBoileau/FormHandlerBundle) [![Maintainability](https://api.codeclimate.com/v1/badges/ee1e8f121f70b75a7712/maintainability)](https://codeclimate.com/github/TBoileau/FormHandlerBundle/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/ee1e8f121f70b75a7712/test_coverage)](https://codeclimate.com/github/TBoileau/FormHandlerBundle/test_coverage)
 
 ## Installation
 
