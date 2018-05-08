@@ -12,14 +12,19 @@
     "symfony/twig-bundle": "^4.0"
   },
   "require-dev": {
+    "sensio/framework-extra-bundle": "^5.1",
     "symfony/dotenv": "^4.0",
     "symfony/maker-bundle": "^1.4",
-    "symfony/phpunit-bridge": "^4.0"
+    "symfony/phpunit-bridge": "^4.0",
+    "symfony/yaml": "^4.2@dev",
+    "phpunit/php-code-coverage": "^6.0@dev",
+    "symfony/browser-kit": "^4.2@dev"
   },
   "autoload": {
     "psr-4": {
       "TBoileau\\FormHandlerBundle\\": "src/",
-      "TBoileau\\FormHandlerBundle\\Tests\\": "tests/"
+      "TBoileau\\FormHandlerBundle\\Tests\\": "tests/",
+      "App\\": "examples/src"
     }
   }
 }

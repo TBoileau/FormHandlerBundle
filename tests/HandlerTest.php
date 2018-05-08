@@ -6,15 +6,22 @@
  * Time: 23:04
  */
 
-namespace TBoileau\FormHandlerBundle\Tests;
-
+namespace App;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
+use TBoileau\FormHandlerBundle\Handler;
 
 class HandlerTest extends TestCase
 {
-    public function testCreated()
+    public function testHandle()
     {
-        $this->assertEquals(1,1);
+        $handler = $this->getMockBuilder(Handler::class)->setMethods(["handle"])->disableOriginalConstructor()->getMockForAbstractClass();
+        $handler
+            ->expects($this->once())
+            ->method("handle")
+            ->will($this->returnValue(new Response()));
+
+        $this->assertInstanceOf(Response::class, $handler->handle());
     }
 }
