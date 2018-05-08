@@ -10,18 +10,22 @@ namespace TBoileau\FormHandlerBundle\Tests\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\StreamOutput;
 
 class FooControllerTest extends WebTestCase
 {
     public function testFoo()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('POST', '/', ["foo" => ["bar" => ""]]);
+        $client->request('POST', '/', ["foo" => ["bar" => ""]]);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $client->request('POST', '/', ["foo" => ["bar" => "foobar"]]);
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-
-
     }
 }

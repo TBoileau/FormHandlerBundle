@@ -13,9 +13,13 @@ use TBoileau\FormHandlerBundle\EventSubscriber\HandlerSubscriber;
 /**
  * Class TBoileauFormHandlerExtension
  * @package TBoileau\FormHandlerBundle\DependencyInjection
+ * @author Thomas Boileau <t-boileau@email.com>
  */
 class TBoileauFormHandlerExtension extends Extension
 {
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

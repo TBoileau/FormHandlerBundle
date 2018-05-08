@@ -27,7 +27,11 @@
 
     <filter>
         <whitelist>
-            <directory>./examples/src</directory>
+            <directory>src</directory>
+            <exclude>
+                <directory>src/Maker</directory>
+                <directory>src/Resources</directory>
+            </exclude>
         </whitelist>
     </filter>
 
