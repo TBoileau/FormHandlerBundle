@@ -15,6 +15,7 @@
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+        <env name="CC_TEST_REPORTER_ID" value="e79d6be0cbf4d72a1ab9159328eec8b6f28bde2126cc3e2520aecf8cbe463f4d" />
         <!-- define your env variables for the test env here -->
     </php>
 
@@ -35,6 +36,7 @@
     </listeners>
     <logging>
         <!-- and this is where your report will be written -->
-        <log type="coverage-clover" target="./clover.xml"/>
+        <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
 </phpunit>

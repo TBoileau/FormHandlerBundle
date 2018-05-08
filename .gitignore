@@ -10,4 +10,4 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-/reports/
+/build/
