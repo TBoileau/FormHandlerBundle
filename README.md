@@ -1,6 +1,11 @@
 # TBoileau/FormHandlerBundle
 
-[![Build Status](https://travis-ci.org/TBoileau/FormHandlerBundle.svg?branch=master)](https://travis-ci.org/TBoileau/FormHandlerBundle) [![Maintainability](https://api.codeclimate.com/v1/badges/ee1e8f121f70b75a7712/maintainability)](https://codeclimate.com/github/TBoileau/FormHandlerBundle/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/ee1e8f121f70b75a7712/test_coverage)](https://codeclimate.com/github/TBoileau/FormHandlerBundle/test_coverage)
+[![Build Status](https://travis-ci.org/TBoileau/FormHandlerBundle.svg?branch=master)](https://travis-ci.org/TBoileau/FormHandlerBundle) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/ee1e8f121f70b75a7712/maintainability)](https://codeclimate.com/github/TBoileau/FormHandlerBundle/maintainability) 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ee1e8f121f70b75a7712/test_coverage)](https://codeclimate.com/github/TBoileau/FormHandlerBundle/test_coverage) 
+[![Latest Stable Version](https://poser.pugx.org/tboileau/form-handler-bundle/v/stable)](https://packagist.org/packages/tboileau/form-handler-bundle)
+[![Total Downloads](https://poser.pugx.org/tboileau/form-handler-bundle/downloads)](https://packagist.org/packages/tboileau/form-handler-bundle)
+[![License](https://poser.pugx.org/tboileau/form-handler-bundle/license)](https://packagist.org/packages/tboileau/form-handler-bundle)
 
 ## Installation
 
