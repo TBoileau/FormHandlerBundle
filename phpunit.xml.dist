@@ -33,4 +33,8 @@
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
+    <logging>
+        <!-- and this is where your report will be written -->
+        <log type="coverage-clover" target="./clover.xml"/>
+    </logging>
 </phpunit>

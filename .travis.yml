@@ -10,6 +10,7 @@ env:
         - CODACY_PROJECT_TOKEN=47ba3016d9cd41988a97ed1d7ada3d03
         - PHPUNIT_FLAGS="-v"
         - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+        - CC_TEST_REPORTER_ID=e79d6be0cbf4d72a1ab9159328eec8b6f28bde2126cc3e2520aecf8cbe463f4d
 
 matrix:
     fast_finish: true
@@ -39,3 +40,5 @@ script:
     # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
     # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
     - ./vendor/bin/simple-phpunit $PHPUNIT_FLAGS ./tests/
+after_script:
+  - ./vendor/bin/test-reporter

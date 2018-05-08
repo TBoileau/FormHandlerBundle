@@ -18,7 +18,8 @@
     "symfony/phpunit-bridge": "^4.0",
     "symfony/yaml": "^4.2@dev",
     "phpunit/php-code-coverage": "^6.0@dev",
-    "symfony/browser-kit": "^4.2@dev"
+    "symfony/browser-kit": "^4.2@dev",
+    "codeclimate/php-test-reporter": "^0.3.0@dev"
   },
   "autoload": {
     "psr-4": {
