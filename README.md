@@ -100,9 +100,14 @@ namespace App\Handler;
 
 use App\Form\FooType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Routing\RouterInterface;
 use TBoileau\FormHandlerBundle\Handler;
+use Twig\Environment;
 
 class FooHandler extends Handler
 {
@@ -112,13 +117,19 @@ class FooHandler extends Handler
     private $entityManager;
 
     /**
-     * FooHandler constructor.
+     * RegisterHandler constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param FormFactoryInterface   $formFactory
+     * @param RouterInterface        $router
+     * @param Environment            $twig
+     * @param RequestStack           $requestStack
+     * @param FlashBagInterface      $flashBag
+     * @param EntityManagerInterface $manager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router, Environment $twig, RequestStack $requestStack, FlashBagInterface $flashBag, EntityManagerInterface $manager)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($formFactory, $router, $twig, $requestStack, $flashBag);
+        $this->entityManager = $manager;
     }
     
     /**
