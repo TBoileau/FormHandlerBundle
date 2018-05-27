@@ -117,7 +117,7 @@ abstract class Handler
      */
     public function onCreate(): FormInterface
     {
-        $this->form = $this->formFactory->create($this->getFormType(), $this->data, $this->options);
+        $this->form = $this->formFactory->create($this->getFormType(), $this->data, $this->getFormOptions());
         return $this->form;
     }
 
@@ -131,10 +131,9 @@ abstract class Handler
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function handle($data = null, $options = [], $view = '', $extraData = [])
+    public function handle($data = null, $view = '', $extraData = [])
     {
         $this->data = $data;
-        $this->options = $options;
         $this->view = $view;
         $this->extraData = $extraData;
         $this->beforeCreate();
@@ -157,4 +156,12 @@ abstract class Handler
      * @return string
      */
     public abstract static function getFormType(): string;
+
+    /**
+     * @return string
+     */
+    public function getFormOptions(): array
+    {
+        return [];
+    }
 }
