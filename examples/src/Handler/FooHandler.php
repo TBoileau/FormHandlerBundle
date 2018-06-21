@@ -20,6 +20,11 @@ class FooHandler extends Handler
         return new RedirectResponse($this->router->generate("index"));
     }
 
+    public function getView(): string
+    {
+        return "index.html.twig";
+    }
+
     public static function getFormType(): string
     {
         return FooType::class;

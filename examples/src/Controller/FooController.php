@@ -25,6 +25,6 @@ class FooController extends Controller
      */
     public function foo(FooHandler $handler)
     {
-        return $handler->handle(null, 'index.html.twig');
+        return $handler->handle();
     }
 }

@@ -13,7 +13,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Question\Question;
-use Twig\Environment;
+use Symfony\Component\Yaml\Yaml;
+use TBoileau\FormHandlerBundle\Handler;
 
 /**
  * Class HandlerMaker
@@ -28,19 +29,19 @@ class HandlerMaker extends AbstractMaker
     private $fileManager;
 
     /**
-     * @var Environment
+     * @var string
      */
-    private $environment;
+    private $projectDir;
 
     /**
      * HandlerMaker constructor.
      * @param FileManager $fileManager
-     * @param Environment $environment
+     * @param string $projectDir
      */
-    public function __construct(FileManager $fileManager, Environment $environment)
+    public function __construct(FileManager $fileManager, string $projectDir)
     {
+        $this->projectDir = $projectDir;
         $this->fileManager = $fileManager;
-        $this->environment = $environment;
     }
 
     /**
@@ -59,7 +60,8 @@ class HandlerMaker extends AbstractMaker
         $command
             ->setDescription("Create a new form handler class")
             ->addArgument('form-handler-class', InputArgument::REQUIRED, 'Choose a name for your form handler class (e.g. <fg=yellow>FooHandler</>)')
-            ->addArgument('form-type', InputArgument::OPTIONAL, 'Enter the form type class attach to this handler (e.g. <fg=yellow>FooType</>)')
+            ->addArgument('form-type', InputArgument::REQUIRED, 'Enter the form type class attach to this handler (e.g. <fg=yellow>FooType</>)')
+//            ->addArgument('auto-edit-services', InputArgument::REQUIRED, 'Do you want auto edit <fg=yellow>config/services.yaml</>')
         ;
     }
 
@@ -94,7 +96,6 @@ class HandlerMaker extends AbstractMaker
      */
     public function configureDependencies(DependencyBuilder $dependencies)
     {
-        // TODO: Implement configureDependencies() method.
     }
 
     /**
@@ -114,6 +115,19 @@ class HandlerMaker extends AbstractMaker
                 "form" => $input->getArgument("form-type")
             ]
         );
+
+//        if($input->getArgument("auto-edit-services")) {
+//            $yaml = Yaml::parseFile($this->projectDir.DIRECTORY_SEPARATOR."config/services.yaml");
+//
+//            $yaml["services"][$handlerClassNameDetails->getFullName()] = [
+//                "parent" => Handler::class,
+//                "autowire" => true,
+//                "autoconfigure" => false,
+//                "public" => false
+//            ];
+//
+//            file_put_contents($this->projectDir.DIRECTORY_SEPARATOR."config/services.yaml", Yaml::dump($yaml, 3));
+//        }
 
         $generator->writeChanges();
         $this->writeSuccessMessage($io);

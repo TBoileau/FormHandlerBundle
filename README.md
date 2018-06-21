@@ -46,10 +46,7 @@ return [
 Open a command console, enter your project directory and execute the following command to generate a new handler :
 
 ```console
-$ php bin/console make:handler HandlerName
-
-  Enter the form type class attach to this handler (e.g. FooType):
-  > FooType
+$ php bin/console make:handler HandlerName FooType
   
   created: src/Handler/FooHandler.php
 
@@ -58,6 +55,21 @@ $ php bin/console make:handler HandlerName
 
 Your new handler is now created :
 
+### Step 2 : Configure your new service handler
+
+Don't forget to configure your new handler in `config/services.yaml` :
+
+```yaml
+    services:
+    # ...        
+        App\Handler\FooHandler:
+            configurator: 'TBoileau\FormHandlerBundle\Configurator:configure'
+```
+
+### Step 3 : Edit your new handler
+
+Most important thing is to declare a form type, a view in them respective method and implement your logic when form is submitted and valid in success' method.
+
 ```php
 <?php
 // App\Handler\FooHandler.php
@@ -76,68 +88,14 @@ class FooHandler extends Handler
     public static function getFormType(): string
     {
         return FooType::class;
-    }
-
-    /**
-     * @return Response
-     */
-    public function onSuccess(): Response
-    {
-
-    }
-}
-```
-
-### Step 2 : Example of simple handler with Doctrine
-
-The static method `getFormType` must return the class name. And `onSuccess` is the method called after the form is submitted and valid.
-
-```php
-<?php
-// App\Handler\FooHandler.php
-
-namespace App\Handler;
-
-use App\Form\FooType;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Routing\RouterInterface;
-use TBoileau\FormHandlerBundle\Handler;
-use Twig\Environment;
-
-class FooHandler extends Handler
-{
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * RegisterHandler constructor.
-     *
-     * @param FormFactoryInterface   $formFactory
-     * @param RouterInterface        $router
-     * @param Environment            $twig
-     * @param RequestStack           $requestStack
-     * @param FlashBagInterface      $flashBag
-     * @param EntityManagerInterface $manager
-     */
-    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router, Environment $twig, RequestStack $requestStack, FlashBagInterface $flashBag, EntityManagerInterface $manager)
-    {
-        parent::__construct($formFactory, $router, $twig, $requestStack, $flashBag);
-        $this->entityManager = $manager;
     }
     
     /**
      * @return string
      */
-    public static function getFormType(): string
+    public function getView(): string
     {
-        return FooType::class;
+        return "index.html.twig";
     }
 
     /**
@@ -145,20 +103,12 @@ class FooHandler extends Handler
      */
     public function onSuccess(): Response
     {
-        $foo = $this->form->getData();
-        $this->entityManager->persist($foo);
-        $this->flush();
-        $this->flashBag->add("success", "Foo added");
-        return new RedirectResponse($this->router->generate("foo_index"));
+        // your logic when form is submitted and valid
     }
 }
 ```
 
-## Full configuration
-
-If you want, you could override than handler master class for fully control (see [Handler](src/Handler.php)).
-
-## Use a form handler
+### Step 4 : Use a form handler into a controller
 
 You must simply add your new form handler in argument's of your controller's action, like this :
 
@@ -186,3 +136,71 @@ class DefaultController extends Controller
     }
 }
 ```
+
+## Bonus : Example of simple handler with Doctrine
+
+The static method `getFormType` must return the class name. And `onSuccess` is the method called after the form is submitted and valid.
+
+```php
+<?php
+// App\Handler\FooHandler.php
+
+namespace App\Handler;
+
+use App\Form\FooType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use TBoileau\FormHandlerBundle\Handler;
+
+class FooHandler extends Handler
+{
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * RegisterHandler constructor.
+     *
+     * @param EntityManagerInterface $manager
+     */
+    public function __construct(EntityManagerInterface $manager)
+    {
+        $this->entityManager = $manager;
+    }
+    
+    /**
+     * @return string
+     */
+    public static function getFormType(): string
+    {
+        return FooType::class;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getView(): string
+    {
+        return "index.html.twig";
+    }
+
+    /**
+     * @return Response
+     */
+    public function onSuccess(): Response
+    {
+        $foo = $this->form->getData();
+        $this->entityManager->persist($foo);
+        $this->flush();
+        $this->flashBag->add("success", "Foo added");
+        return new RedirectResponse($this->router->generate("foo_index"));
+    }
+}
+```
+
+## Full configuration
+
+If you want, you could override than handler master class for fully control (see [Handler](src/Handler.php)).
+

@@ -17,6 +17,14 @@ class <?= $class_name ?> extends Handler
     }
 
     /**
+     * @return string
+     */
+    public function getView(): string
+    {
+        return "";
+    }
+
+    /**
      * @return Response
      */
     public function onSuccess(): Response

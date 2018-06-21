@@ -15,9 +15,8 @@ use Twig\Environment;
  * @package TBoileau\FormHandlerBundle
  * @author Thomas Boileau <t-boileau@email.com>
  */
-abstract class Handler
+abstract class Handler implements HandlerInterface
 {
-
     /**
      * @var FormInterface
      */
@@ -69,20 +68,63 @@ abstract class Handler
     protected $extraData;
 
     /**
-     * EventSubscriber constructor.
      * @param FormFactoryInterface $formFactory
-     * @param RouterInterface $router
-     * @param Environment $twig
-     * @param RequestStack $requestStack
-     * @param FlashBagInterface $flashBag
+     *
+     * @return self
      */
-    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router, Environment $twig, RequestStack $requestStack, FlashBagInterface $flashBag)
+    public function setFormFactory(FormFactoryInterface $formFactory): self
     {
         $this->formFactory = $formFactory;
+
+        return $this;
+    }
+
+    /**
+     * @param RouterInterface $router
+     *
+     * @return self
+     */
+    public function setRouter(RouterInterface $router): self
+    {
         $this->router = $router;
+
+        return $this;
+    }
+
+    /**
+     * @param Environment $twig
+     *
+     * @return self
+     */
+    public function setTwig(Environment $twig): self
+    {
         $this->twig = $twig;
+
+        return $this;
+    }
+
+    /**
+     * @param RequestStack $requestStack
+     *
+     * @return self
+     */
+    public function setRequestStack(RequestStack $requestStack): self
+    {
         $this->requestStack = $requestStack;
+
+        return $this;
+    }
+
+    /**
+     * @param FlashBagInterface $flashBag
+     *
+     * @return self
+     */
+    public function setFlashBag(FlashBagInterface $flashBag): self
+    {
         $this->flashBag = $flashBag;
+
+        return $this;
     }
 
     /**
@@ -93,7 +135,7 @@ abstract class Handler
      */
     public function onRender(): Response
     {
-        return new Response($this->twig->render($this->view, ["form" => $this->form->createView()] + $this->extraData));
+        return new Response($this->twig->render($this->getView(), ["form" => $this->form->createView()] + $this->extraData));
     }
 
     /**
@@ -123,18 +165,15 @@ abstract class Handler
 
     /**
      * @param null $data
-     * @param array $options
-     * @param string $view
      * @param array $extraData
      * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function handle($data = null, $view = '', $extraData = [])
+    public function handle($data = null, $extraData = [])
     {
         $this->data = $data;
-        $this->view = $view;
         $this->extraData = $extraData;
         $this->beforeCreate();
         $this->onCreate()->handleRequest($this->requestStack->getCurrentRequest());
@@ -148,17 +187,7 @@ abstract class Handler
     }
 
     /**
-     * @return Response
-     */
-    public abstract function onSuccess(): Response;
-
-    /**
-     * @return string
-     */
-    public abstract static function getFormType(): string;
-
-    /**
-     * @return string
+     * @return array
      */
     public function getFormOptions(): array
     {
