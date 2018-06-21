@@ -1,7 +1,5 @@
 services:
     TBoileau\FormHandlerBundle\Maker\HandlerMaker:
-        arguments: ["@maker.file_manager", "%kernel.project_dir%"]
+        arguments: ["@maker.file_manager"]
         tags:
             - { name: maker.command }
-    TBoileau\FormHandlerBundle\Configurator:
-        autowire: true

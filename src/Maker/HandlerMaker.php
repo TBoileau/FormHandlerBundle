@@ -29,18 +29,11 @@ class HandlerMaker extends AbstractMaker
     private $fileManager;
 
     /**
-     * @var string
-     */
-    private $projectDir;
-
-    /**
      * HandlerMaker constructor.
      * @param FileManager $fileManager
-     * @param string $projectDir
      */
-    public function __construct(FileManager $fileManager, string $projectDir)
+    public function __construct(FileManager $fileManager)
     {
-        $this->projectDir = $projectDir;
         $this->fileManager = $fileManager;
     }
 
@@ -61,33 +54,7 @@ class HandlerMaker extends AbstractMaker
             ->setDescription("Create a new form handler class")
             ->addArgument('form-handler-class', InputArgument::REQUIRED, 'Choose a name for your form handler class (e.g. <fg=yellow>FooHandler</>)')
             ->addArgument('form-type', InputArgument::REQUIRED, 'Enter the form type class attach to this handler (e.g. <fg=yellow>FooType</>)')
-//            ->addArgument('auto-edit-services', InputArgument::REQUIRED, 'Do you want auto edit <fg=yellow>config/services.yaml</>')
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function interact(InputInterface $input, ConsoleStyle $io, Command $command)
-    {
-        if (null === $input->getArgument('form-type')) {
-            $argument = $command->getDefinition()->getArgument('form-type');
-            $formFinder = $this->fileManager->createFinder('src/Form/')->depth('<1')->name("*.php");
-            $classes = [];
-            foreach ($formFinder as $item) {
-                if (!$item->getRelativePathname()) {
-                    continue;
-                }
-                $classes[] = str_replace('/', '\\', str_replace('.php', '', $item->getRelativePathname()));
-            }
-            $question = new Question($argument->getDescription());
-            $question->setValidator(function ($answer) use ($classes) {
-                return Validator::existsOrNull($answer, $classes);
-            });
-            $question->setAutocompleterValues($classes);
-            $question->setMaxAttempts(3);
-            $input->setArgument('form-type', $io->askQuestion($question));
-        }
     }
 
 
@@ -115,19 +82,6 @@ class HandlerMaker extends AbstractMaker
                 "form" => $input->getArgument("form-type")
             ]
         );
-
-//        if($input->getArgument("auto-edit-services")) {
-//            $yaml = Yaml::parseFile($this->projectDir.DIRECTORY_SEPARATOR."config/services.yaml");
-//
-//            $yaml["services"][$handlerClassNameDetails->getFullName()] = [
-//                "parent" => Handler::class,
-//                "autowire" => true,
-//                "autoconfigure" => false,
-//                "public" => false
-//            ];
-//
-//            file_put_contents($this->projectDir.DIRECTORY_SEPARATOR."config/services.yaml", Yaml::dump($yaml, 3));
-//        }
 
         $generator->writeChanges();
         $this->writeSuccessMessage($io);
