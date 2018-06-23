@@ -63,7 +63,7 @@ Don't forget to configure your new handler in `config/services.yaml` :
     services:
     # ...        
         App\Handler\FooHandler:
-            configurator: 'TBoileau\FormHandlerBundle\Configurator:configure'
+            - tags: { name: t_boileau.form_handler }
 ```
 
 ### Step 3 : Edit your new handler
