@@ -132,7 +132,7 @@ class DefaultController extends Controller
      */
     public function add(FooHandler $fooHandler): Response
     {
-        return $fooHandler->handle(new Foo(), [], 'foo/add.html.twig');
+        return $fooHandler->handle(new Foo(), []);
     }
 }
 ```
